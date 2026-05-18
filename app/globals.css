@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-brand: #FF6B35;
+  --color-brand-muted: #FFE5D9;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  *:focus-visible {
+    outline: 2px solid #FF6B35;
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+@layer utilities {
+  .smart4ai-gradient-text {
+    background: linear-gradient(135deg, #FF6B35 0%, #f4a261 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/* Animación suave para colapsables */
+.collapsible-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.2s ease-out;
+}
+
+.collapsible-content.open {
+  grid-template-rows: 1fr;
+}
+
+.collapsible-content > div {
+  overflow: hidden;
+}
