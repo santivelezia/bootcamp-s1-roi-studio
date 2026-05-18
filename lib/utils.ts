@@ -15,6 +15,27 @@ export function formatCop(value: number): string {
   }).format(value)
 }
 
+/**
+ * Formatea un monto COP compacto · prioriza legibilidad sobre precisión.
+ * Threshold:
+ *   n ≥ 1e9   → "$X.XXB"   (billones)
+ *   n ≥ 1e6   → "$X.XM"    (millones)
+ *   n ≥ 1e3   → "$X.XK"    (miles)
+ *   else      → "$XXX"     (no decimales)
+ *
+ * Para tooltips/PDF/hints donde el espacio es suficiente, seguir usando
+ * `formatCop()` con el formato completo "$1.234.567 COP".
+ */
+export function formatCopCompact(value: number): string {
+  if (!Number.isFinite(value)) return '$0'
+  const sign = value < 0 ? '-' : ''
+  const abs = Math.abs(value)
+  if (abs >= 1e9) return `${sign}$${(abs / 1e9).toFixed(2)}B`
+  if (abs >= 1e6) return `${sign}$${(abs / 1e6).toFixed(1)}M`
+  if (abs >= 1e3) return `${sign}$${(abs / 1e3).toFixed(1)}K`
+  return `${sign}$${Math.round(abs)}`
+}
+
 /** Formatea un monto en USD con 0 decimales · ej. $12,500 */
 export function formatUsd(value: number): string {
   if (!Number.isFinite(value)) return '$0'
