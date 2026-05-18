@@ -6,7 +6,6 @@
 import type { JSX } from 'react'
 import {
   Document,
-  Font,
   Image,
   Page,
   StyleSheet,
@@ -25,17 +24,12 @@ const palette = {
   muted: '#6B7280',
 }
 
-Font.register({
-  family: 'Inter',
-  fonts: [
-    { src: 'https://rsms.me/inter/font-files/Inter-Regular.otf', fontWeight: 400 },
-    { src: 'https://rsms.me/inter/font-files/Inter-SemiBold.otf', fontWeight: 600 },
-    { src: 'https://rsms.me/inter/font-files/Inter-Bold.otf', fontWeight: 700 },
-  ],
-})
+// Usamos Helvetica (built-in) en lugar de Inter via CDN.
+// Self-host Inter en /public/fonts/ es el siguiente nivel de polish, pero el
+// CDN externo desde Vercel Node runtime es frágil (timeout/network).
 
 const styles = StyleSheet.create({
-  page: { fontFamily: 'Inter', backgroundColor: palette.paper, padding: 48, color: palette.ink },
+  page: { fontFamily: 'Helvetica', backgroundColor: palette.paper, padding: 48, color: palette.ink },
   cover: { flex: 1, justifyContent: 'space-between' },
   coverBadge: { fontSize: 11, color: palette.brand, fontWeight: 700, letterSpacing: 2 },
   coverTitle: { fontSize: 34, fontWeight: 700, marginTop: 24, lineHeight: 1.15 },
